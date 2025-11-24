@@ -2,9 +2,9 @@
 
 namespace App\Filament\Widgets\DataSources\Shop;
 
-use App\Enums\OrderStatus;
-use App\Models\Shop\Order;
+use App\Models\Shop\ProductCategory;
 use Filament\CustomDashboardsPlugin\Widgets\DataSources\Attributes\Attribute;
+use Filament\CustomDashboardsPlugin\Widgets\DataSources\Attributes\BooleanAttribute;
 use Filament\CustomDashboardsPlugin\Widgets\DataSources\Attributes\DateAttribute;
 use Filament\CustomDashboardsPlugin\Widgets\DataSources\Attributes\NumberAttribute;
 use Filament\CustomDashboardsPlugin\Widgets\DataSources\Attributes\RelationshipAttribute;
@@ -12,13 +12,13 @@ use Filament\CustomDashboardsPlugin\Widgets\DataSources\Attributes\TextAttribute
 use Filament\CustomDashboardsPlugin\Widgets\DataSources\EloquentWidgetDataSource;
 use UnitEnum;
 
-class OrderWidgetDataSource extends EloquentWidgetDataSource
+class ProductCategoryWidgetDataSource extends EloquentWidgetDataSource
 {
-    protected ?string $model = Order::class;
+    protected ?string $model = ProductCategory::class;
 
     protected string|UnitEnum|null $group = 'Shop';
 
-    protected ?int $sort = 1;
+    protected ?int $sort = 0;
 
     /**
      * @return array<Attribute>
@@ -26,28 +26,22 @@ class OrderWidgetDataSource extends EloquentWidgetDataSource
     public function getAttributes(): array
     {
         return [
-            RelationshipAttribute::make('customer')
+            RelationshipAttribute::make('parent')
                 ->titleAttribute('name')
                 ->emptyable(),
-            TextAttribute::make('number'),
-            NumberAttribute::make('total_price')
-                ->money()
+            TextAttribute::make('name'),
+            TextAttribute::make('slug'),
+            TextAttribute::make('description')
                 ->nullable(),
-            TextAttribute::make('status')
-                ->enum(OrderStatus::class),
-            TextAttribute::make('currency'),
-            NumberAttribute::make('shipping_price')
-                ->money()
+            NumberAttribute::make('position'),
+            BooleanAttribute::make('is_visible'),
+            TextAttribute::make('seo_title')
                 ->nullable(),
-            TextAttribute::make('shipping_method')
-                ->nullable(),
-            TextAttribute::make('notes')
+            TextAttribute::make('seo_description')
                 ->nullable(),
             DateAttribute::make('created_at')
                 ->nullable(),
             DateAttribute::make('updated_at')
-                ->nullable(),
-            DateAttribute::make('deleted_at')
                 ->nullable(),
         ];
     }

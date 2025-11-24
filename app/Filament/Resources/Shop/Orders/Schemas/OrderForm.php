@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Shop\Orders\Schemas;
 
 use App\Enums\OrderStatus;
-use App\Filament\Clusters\Products\Resources\Products\ProductResource;
+use App\Filament\Resources\Shop\Products\ProductResource;
 use App\Forms\Components\AddressForm;
 use App\Models\Shop\Order;
 use App\Models\Shop\Product;
